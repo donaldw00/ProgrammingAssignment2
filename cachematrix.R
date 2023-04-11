@@ -1,34 +1,51 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Two functions that produce the inverse of a given matrix
 
-## Write a short comment describing this function
+## Initial function to create matrix object
 
 makeCacheMatrix <- function(x = matrix()) {
-  m <- NULL
+    ##initialise variable
+   i <- NULL
+    ##set matrix
   set <- function(y) {
     x <<- y
-    m <<- NULL
+    i <<- NULL
   }
-  get <- function() x
-  setmean <- function(mean) m <<- mean
-  getmean <- function() m
+    ##get matrix
+  get <- function() {
+    x
+  }
+    ##inverse of matrix
+  setInverse <- function(inverse) {
+    i <<- inverse
+  }
+  
+  getInverse <- function() {
+    i
+  }
+  
+    ##list of methods
   list(set = set, get = get,
-       setmean = setmean,
-       getmean = getmean)
+       setInverse = setInverse,
+       getInverse = getInverse)
 }
 
-## Write a short comment describing this function
+## Function calculates inverse of matrix object using 'solve' function
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-  m <- x$getmean()
-  if(!is.null(m)) {
+  ## Return a matrix that is the inverse of 'x'
+  i <- x$getInverse()
+  ##Return inverse matrix if already calculated
+  if(!is.null(i)) {
     message("getting cached data")
-    return(m)
+    return(i)
   }
+  ##retrieve matrix from object
   data <- x$get()
-  m <- mean(data, ...)
-  x$setmean(m)
-  m
+  ##calculate inverse
+  i <- solve(data, ...)
+  ##replace object with inverse calculated
+  x$setInverse(i)
+  ##return value
+  i
   
 }
